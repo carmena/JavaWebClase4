@@ -3,9 +3,9 @@ package app.model;
 
 
 public class Servicio {
-    int id;
-    String descripcion;
-    double costoHora;
+   private int id;
+   private String descripcion;
+   private double costoHora;
 
     public int getId() {
         return id;

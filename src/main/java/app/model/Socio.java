@@ -2,14 +2,14 @@ package app.model;
 
 public class Socio {
 
-    int id;
-    String email;
-    String nombres;
-    String materno;
-    String paterno;
-    String celular;
-    String sexo;
-    String direccion;
+   private int id;
+   private String email;
+   private String nombres;
+   private String materno;
+   private String paterno;
+   private String celular;
+   private String sexo;
+   private String direccion;
 
     public int getId() {
         return id;
