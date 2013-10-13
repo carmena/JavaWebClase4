@@ -1,6 +1,4 @@
 package app.dao;
-
-import app.model.Administrador;
 import app.model.Local;
 import app.util.AccesoBD;
 import java.sql.Connection;
@@ -9,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+
 public class LocalDAO {
 
     public static void insert(Local loc) throws SQLException {
@@ -63,29 +62,47 @@ public class LocalDAO {
 
     public static Local searchlocal(int id) throws SQLException {
         Local loc = null;
-       ResultSet rs;
+        ResultSet rs;
         String sql = "select *from local where id=?";
         Connection cn = AccesoBD.obtenerConexion();
         PreparedStatement stm;
         stm = cn.prepareStatement(sql);
         stm.setInt(1, id);
-        rs=stm.executeQuery();
-        if(rs.next()){
-        loc=new Local();
-        loc.setId(rs.getInt(1));
-        loc.setDireccion(rs.getString(2));
-         loc.setDescripcion(rs.getString(3));
-        loc.setEstado(rs.getInt(4));
-        loc.setMaps(rs.getString(5));
-        loc.setTelefono(rs.getString(6));
+        rs = stm.executeQuery();
+        if (rs.next()) {
+            loc = new Local();
+            loc.setId(rs.getInt(1));
+            loc.setDireccion(rs.getString(2));
+            loc.setDescripcion(rs.getString(3));
+            loc.setEstado(rs.getInt(4));
+            loc.setMaps(rs.getString(5));
+            loc.setTelefono(rs.getString(6));
 
         }
         return loc;
     }
-    
-    public static Collection<Local> listar() {
-        Collection<Local> lista = new ArrayList<Local>();
 
+    public static Collection<Local> listar() throws SQLException {
+        Collection<Local> lista = new ArrayList<Local>();
+        String sql = "select *from local";
+        Connection cn = AccesoBD.obtenerConexion();
+        PreparedStatement stm;
+        Local loc;
+          ResultSet rs;
+           stm = cn.prepareStatement(sql);
+          rs=stm.executeQuery();
+          while(rs.next()){
+           loc = new Local();
+            loc.setId(rs.getInt(1));
+            loc.setDireccion(rs.getString(2));
+            loc.setDescripcion(rs.getString(3));
+            loc.setEstado(rs.getInt(4));
+            loc.setMaps(rs.getString(5));
+            loc.setTelefono(rs.getString(6));
+            lista.add(loc);
+          
+          
+          }
         return lista;
 
     }
