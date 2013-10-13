@@ -14,8 +14,8 @@ public class Campo {
     private String descripcion;
     private int estado;
     private int tipo;
-    private double osto_hora;
-    private int id_local;
+    private double costo_Hora;
+    private Local local;
 
     public int getId() {
         return id;
@@ -49,19 +49,19 @@ public class Campo {
         this.tipo = tipo;
     }
 
-    public double getOsto_hora() {
-        return osto_hora;
+    public double getCosto_Hora() {
+        return costo_Hora;
     }
 
-    public void setOsto_hora(double osto_hora) {
-        this.osto_hora = osto_hora;
+    public void setCosto_Hora(double costo_Hora) {
+        this.costo_Hora = costo_Hora;
     }
 
-    public int getId_local() {
-        return id_local;
+    public Local getLocal() {
+        return local;
     }
 
-    public void setId_local(int id_local) {
-        this.id_local = id_local;
+    public void setLocal(Local local) {
+        this.local = local;
     }
 }
