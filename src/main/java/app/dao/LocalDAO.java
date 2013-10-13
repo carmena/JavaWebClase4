@@ -11,7 +11,7 @@ import java.util.Collection;
 
 public class LocalDAO {
 
-    public static void insert(Local loc) throws SQLException {
+    public static Local insert(Local loc) throws SQLException {
         String sql = "insert into local(direccion,descripcion,estado,maps,telefono)values(?,?,?,?,?)";
         PreparedStatement stm;
 
@@ -27,11 +27,12 @@ public class LocalDAO {
 
         cn.close();
         stm.close();
+        return loc;
 
 
     }
 
-    public static void update(Local loc) throws SQLException {
+    public static Local update(Local loc) throws SQLException {
         String sql = "insert local set direccion=?,descripcion=?,estado=?,maps=?,telefono=? where id=?";
         PreparedStatement stm;
 
@@ -48,7 +49,7 @@ public class LocalDAO {
 
         cn.close();
         stm.close();
-
+return loc;
     }
 
     public static void delete(int id) throws SQLException {
