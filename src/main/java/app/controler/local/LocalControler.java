@@ -26,7 +26,7 @@ public class LocalControler extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
-        RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/servicio/servicio.jsp");
+        RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/adm/local/local.jsp");
         rd.forward(request, response);
     }
 
