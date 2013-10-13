@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author LAB704-00
  */
-@WebServlet(name = "Serviciocontroller", urlPatterns = {"/Serviciocontroller"})
+@WebServlet(name = "LocalControler", urlPatterns = {"/adm/local"})
 public class Serviciocontroller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -30,8 +30,7 @@ public class Serviciocontroller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
-        
-       
+
         RequestDispatcher rd= request.getRequestDispatcher("WEB-INF/adm/servicio/servicio.jsp");
         rd.forward(request, response);
                 
