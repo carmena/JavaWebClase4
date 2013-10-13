@@ -1,13 +1,15 @@
 
 package app.model;
 
+import java.util.Date;
+
 public class SolicitudAlquiler {
     private int id;
-    private int dia;
+    private Date dia;
     private String servicios;
     private int estado;
-    private int idsocio;
-    private int idcampo;
+    private Socio socio;
+    private Campo  campo;
     private String horaInicio;
     private String horaFin;
 
@@ -19,11 +21,11 @@ public class SolicitudAlquiler {
         this.id = id;
     }
 
-    public int getDia() {
+    public Date getDia() {
         return dia;
     }
 
-    public void setDia(int dia) {
+    public void setDia(Date dia) {
         this.dia = dia;
     }
 
@@ -43,20 +45,20 @@ public class SolicitudAlquiler {
         this.estado = estado;
     }
 
-    public int getIdsocio() {
-        return idsocio;
+    public Socio getSocio() {
+        return socio;
     }
 
-    public void setIdsocio(int idsocio) {
-        this.idsocio = idsocio;
+    public void setSocio(Socio socio) {
+        this.socio = socio;
     }
 
-    public int getIdcampo() {
-        return idcampo;
+    public Campo getCampo() {
+        return campo;
     }
 
-    public void setIdcampo(int idcampo) {
-        this.idcampo = idcampo;
+    public void setCampo(Campo campo) {
+        this.campo = campo;
     }
 
     public String getHoraInicio() {
@@ -75,5 +77,5 @@ public class SolicitudAlquiler {
         this.horaFin = horaFin;
     }
     
-    
+
 }

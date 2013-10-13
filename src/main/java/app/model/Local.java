@@ -1,20 +1,21 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package app.model;
 
-/**
- *
- * @author LAB704-00
- */
+package app.model;
 public class Local {
 
     private int id;
     private String direccion;
+    private String descripcion;
     private int estado;
     private String maps;
     private String telefono;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public int getId() {
         return id;
