@@ -13,7 +13,7 @@ public static Connection obtenerConexion() throws SQLException {
 	Connection con = null;
 	try {
 		Class.forName("com.mysql.jdbc.Driver");
-		con = DriverManager.getConnection("jdbc:mysql://localhost/club","root", "");
+		con = DriverManager.getConnection("jdbc:mysql://localhost/club","root", "123");
 	} catch (ClassNotFoundException e) {
 		e.printStackTrace();
 	} catch (Exception e) {
