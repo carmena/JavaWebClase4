@@ -1,4 +1,5 @@
 package app.dao;
+
 import app.model.Local;
 import app.util.AccesoBD;
 import java.sql.Connection;
@@ -24,6 +25,9 @@ public class LocalDAO {
         stm.setString(5, loc.getTelefono());
         int n = stm.executeUpdate();
 
+        cn.close();
+        stm.close();
+
 
     }
 
@@ -42,7 +46,8 @@ public class LocalDAO {
         stm.setInt(6, loc.getId());
         int n = stm.executeUpdate();
 
-
+        cn.close();
+        stm.close();
 
     }
 
@@ -57,7 +62,8 @@ public class LocalDAO {
         int n = stm.executeUpdate();
 
 
-
+        cn.close();
+        stm.close();
     }
 
     public static Local searchlocal(int id) throws SQLException {
@@ -79,6 +85,9 @@ public class LocalDAO {
             loc.setTelefono(rs.getString(6));
 
         }
+        cn.close();
+        stm.close();
+        rs.close();
         return loc;
     }
 
@@ -88,11 +97,11 @@ public class LocalDAO {
         Connection cn = AccesoBD.obtenerConexion();
         PreparedStatement stm;
         Local loc;
-          ResultSet rs;
-           stm = cn.prepareStatement(sql);
-          rs=stm.executeQuery();
-          while(rs.next()){
-           loc = new Local();
+        ResultSet rs;
+        stm = cn.prepareStatement(sql);
+        rs = stm.executeQuery();
+        while (rs.next()) {
+            loc = new Local();
             loc.setId(rs.getInt(1));
             loc.setDireccion(rs.getString(2));
             loc.setDescripcion(rs.getString(3));
@@ -100,9 +109,12 @@ public class LocalDAO {
             loc.setMaps(rs.getString(5));
             loc.setTelefono(rs.getString(6));
             lista.add(loc);
-          
-          
-          }
+
+
+        }
+        cn.close();
+        stm.close();
+        rs.close();
         return lista;
 
     }
