@@ -2,20 +2,20 @@ package app.model;
 
 public class Socio {
 
-   private int id;
-   private String email;
-   private String nombres;
-   private String materno;
-   private String paterno;
-   private String celular;
-   private String sexo;
-   private String direccion;
+    private long id;
+    private String email;
+    private String nombres;
+    private String materno;
+    private String paterno;
+    private int celular;
+    private int sexo;
+    private String direccion;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -51,19 +51,19 @@ public class Socio {
         this.paterno = paterno;
     }
 
-    public String getCelular() {
+    public int getCelular() {
         return celular;
     }
 
-    public void setCelular(String celular) {
+    public void setCelular(int celular) {
         this.celular = celular;
     }
 
-    public String getSexo() {
+    public int getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(int sexo) {
         this.sexo = sexo;
     }
 
@@ -74,5 +74,4 @@ public class Socio {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
 }

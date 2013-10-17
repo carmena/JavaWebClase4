@@ -1,27 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.model;
 
-/**
- *
- * @author LAB704-00
- */
 public class Campo {
-
-    private int id;
+    private long id;
     private String descripcion;
     private int estado;
     private int tipo;
     private double costo_Hora;
     private Local local;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -64,4 +55,6 @@ public class Campo {
     public void setLocal(Local local) {
         this.local = local;
     }
+
+    
 }

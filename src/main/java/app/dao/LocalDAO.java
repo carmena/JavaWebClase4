@@ -1,122 +1,79 @@
 package app.dao;
 
 import app.model.Local;
-import app.util.AccesoBD;
+
+import app.zelper.ConexionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
-public class LocalDAO {
+public class LocalDAO extends BaseDAO {
 
-    public static Local insert(Local loc) throws SQLException {
-        String sql = "insert into local(direccion,descripcion,estado,maps,telefono)values(?,?,?,?,?)";
-        PreparedStatement stm;
+    public List<Local> list() throws DAOExcepcion {
+        List<Local> lista = new ArrayList<Local>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-
-        Connection cn = AccesoBD.obtenerConexion();
-        stm = cn.prepareStatement(sql);
-        stm.setString(1, loc.getDireccion());
-        stm.setString(2, loc.getDescripcion());
-        stm.setInt(3, loc.getEstado());
-        stm.setString(4, loc.getMaps());
-        stm.setString(5, loc.getTelefono());
-        int n = stm.executeUpdate();
-
-        cn.close();
-        stm.close();
-        return loc;
-
-
-    }
-
-    public static Local update(Local loc) throws SQLException {
-        String sql = "insert local set direccion=?,descripcion=?,estado=?,maps=?,telefono=? where id=?";
-        PreparedStatement stm;
-
-
-        Connection cn = AccesoBD.obtenerConexion();
-        stm = cn.prepareStatement(sql);
-        stm.setString(1, loc.getDireccion());
-        stm.setString(2, loc.getDescripcion());
-        stm.setInt(3, loc.getEstado());
-        stm.setString(4, loc.getMaps());
-        stm.setString(5, loc.getTelefono());
-        stm.setInt(6, loc.getId());
-        int n = stm.executeUpdate();
-
-        cn.close();
-        stm.close();
-return loc;
-    }
-
-    public static void delete(int id) throws SQLException {
-        String sql = "delete from local where id=?";
-        PreparedStatement stm;
-
-
-        Connection cn = AccesoBD.obtenerConexion();
-        stm = cn.prepareStatement(sql);
-        stm.setInt(1, id);
-        int n = stm.executeUpdate();
-
-
-        cn.close();
-        stm.close();
-    }
-
-    public static Local searchlocal(int id) throws SQLException {
-        Local loc = null;
-        ResultSet rs;
-        String sql = "select *from local where id=?";
-        Connection cn = AccesoBD.obtenerConexion();
-        PreparedStatement stm;
-        stm = cn.prepareStatement(sql);
-        stm.setInt(1, id);
-        rs = stm.executeQuery();
-        if (rs.next()) {
-            loc = new Local();
-            loc.setId(rs.getInt(1));
-            loc.setDireccion(rs.getString(2));
-            loc.setDescripcion(rs.getString(3));
-            loc.setEstado(rs.getInt(4));
-            loc.setMaps(rs.getString(5));
-            loc.setTelefono(rs.getString(6));
+        try {
+            con = ConexionDB.obtenerConexion();
+            String query = "SELECT *FROM local ORDER BY descripcion;";
+            stmt = con.prepareStatement(query);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Local item = new Local();
+                item.setId(rs.getInt("id"));
+                item.setDescripcion(rs.getString("descripcion"));
+                item.setDireccion(rs.getString("direccion"));
+                item.setMaps(rs.getString("maps"));
+                item.setTelefono(rs.getString("telefono"));
+                item.setEstado(rs.getInt("estado"));
+                lista.add(item);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            this.cerrarResultSet(rs);
+            this.cerrarStatement(stmt);
+            this.cerrarConexion(con);
 
         }
-        cn.close();
-        stm.close();
-        rs.close();
-        return loc;
-    }
-
-    public static Collection<Local> listar() throws SQLException {
-        Collection<Local> lista = new ArrayList<Local>();
-        String sql = "select *from local";
-        Connection cn = AccesoBD.obtenerConexion();
-        PreparedStatement stm;
-        Local loc;
-        ResultSet rs;
-        stm = cn.prepareStatement(sql);
-        rs = stm.executeQuery();
-        while (rs.next()) {
-            loc = new Local();
-            loc.setId(rs.getInt(1));
-            loc.setDireccion(rs.getString(2));
-            loc.setDescripcion(rs.getString(3));
-            loc.setEstado(rs.getInt(4));
-            loc.setMaps(rs.getString(5));
-            loc.setTelefono(rs.getString(6));
-            lista.add(loc);
-
-
-        }
-        cn.close();
-        stm.close();
-        rs.close();
         return lista;
+    }
+
+    public Local get(Local local) throws DAOExcepcion {
+        String query = "SELECT  *FROM local WHERE id=?";
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Local item = new Local();
+        try {
+            con = ConexionDB.obtenerConexion();
+            stmt = con.prepareStatement(query);
+            stmt.setLong(1, local.getId());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                item.setId(rs.getInt("id"));
+                item.setDescripcion(rs.getString("descripcion"));
+                item.setDireccion(rs.getString("direccion"));
+                item.setMaps(rs.getString("maps"));
+                item.setTelefono(rs.getString("telefono"));
+                item.setEstado(rs.getInt("estado"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            this.cerrarResultSet(rs);
+            this.cerrarStatement(stmt);
+            this.cerrarConexion(con);
+
+        }
+
+        return item;
 
     }
 }

@@ -1,17 +1,16 @@
-
 package app.model;
 
 public class Administrador {
-    
-    private int id;
-   private String usuario;
-   private String password;
 
-    public int getId() {
+    private long id;
+    private String usuario;
+    private String password;
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -30,6 +29,4 @@ public class Administrador {
     public void setPassword(String password) {
         this.password = password;
     }
-   
-    
 }

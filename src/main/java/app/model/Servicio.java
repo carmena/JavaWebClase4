@@ -1,17 +1,16 @@
-
 package app.model;
 
-
 public class Servicio {
-   private int id;
+    
+   private long id;
    private String descripcion;
    private double costoHora;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -30,5 +29,5 @@ public class Servicio {
     public void setCostoHora(double costoHora) {
         this.costoHora = costoHora;
     }
-    
+
 }
