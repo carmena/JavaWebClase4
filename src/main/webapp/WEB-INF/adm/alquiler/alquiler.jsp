@@ -9,7 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Campos </title>
+         <%@include file="/public/header.jsp" %>
     </head>
     <body>
         <h1>Alquiler!</h1>

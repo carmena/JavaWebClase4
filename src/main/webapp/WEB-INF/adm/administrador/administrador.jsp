@@ -1,6 +1,6 @@
 <%-- 
     Document   : administrador
-    Created on : 18-oct-2013, 16:29:56
+    Created on : 18-oct-2013, 18:39:23
     Author     : carmen
 --%>
 
@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Administrador</h1>
+         <%@include file="/public/menuGeneral.jsp" %>
+        <h1>administrador</h1>
     </body>
 </html>

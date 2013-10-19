@@ -12,6 +12,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>loocaL!</h1>
+         <%@include file="/public/menuGeneral.jsp" %>
+        <div class="container-fluid">
+            <div class="row-fluid">
+             
+                    <div class="span9">
+                 
+                </div>
+            </div>
+        </div>
+    
     </body>
 </html>
