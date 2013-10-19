@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ServicioDAO extends BaseDAO{
+public class ServicioDAO extends BaseDAO {
 
     public List<Servicio> list() throws DAOExcepcion {
         List<Servicio> lista = new ArrayList<Servicio>();
@@ -49,21 +49,21 @@ public class ServicioDAO extends BaseDAO{
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-       Servicio servicioOriginal = new Servicio();
+        Servicio servicioOriginal = new Servicio();
         try {
             con = ConexionDB.obtenerConexion();
             stmt = con.prepareStatement(query);
-            stmt.setLong(1,servicio.getId());
+            stmt.setLong(1, servicio.getId());
             rs = stmt.executeQuery();
-                
-            
+
+
             while (rs.next()) {
                 servicioOriginal.setId(rs.getInt("id"));
                 servicioOriginal.setDescripcion(rs.getString("descripcion"));
                 servicioOriginal.setCostoHora(rs.getDouble("costo_hora"));
             }
         } catch (SQLException e) {
-              System.err.println(e.getMessage());
+            System.err.println(e.getMessage());
         } finally {
             this.cerrarResultSet(rs);
             this.cerrarStatement(stmt);
@@ -105,18 +105,18 @@ public class ServicioDAO extends BaseDAO{
         }
         return servicio;
     }
-    
-     public Servicio update(Servicio servicio) throws DAOExcepcion {
+
+    public Servicio update(Servicio servicio) throws DAOExcepcion {
         String query = "update servicio descripcion=?,costo_hora=? where id=?";
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ConexionDB.obtenerConexion();
             stmt = con.prepareStatement(query);
-             stmt.setString(1, servicio.getDescripcion());
+            stmt.setString(1, servicio.getDescripcion());
             stmt.setDouble(2, servicio.getCostoHora());
             stmt.setLong(3, servicio.getId());
-            
+
             int i = stmt.executeUpdate();
             if (i != 1) {
                 throw new SQLException("No se pudo actualizar");

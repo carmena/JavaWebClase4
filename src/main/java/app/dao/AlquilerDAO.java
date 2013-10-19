@@ -1,42 +1,43 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.dao;
 
+import app.model.Alquiler;
+import app.model.Campo;
 import app.model.Local;
+import app.model.Servicio;
 import app.model.Socio;
 import app.zelper.ConexionDB;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-public class SocioDAO extends BaseDAO {
+public class AlquilerDAO extends BaseDAO {
 
-    public List<Socio> list() throws DAOExcepcion {
-        List<Socio> lista = new ArrayList<Socio>();
+    public List<Alquiler> list() throws DAOExcepcion {
+        List<Alquiler> lista = new ArrayList<Alquiler>();
+
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             con = ConexionDB.obtenerConexion();
-            String query = "SELECT *FROM socio ORDER BY paterno;";
+            String query = "SELECT *FROM alquiler ORDER BY descripcion";
             stmt = con.prepareStatement(query);
             rs = stmt.executeQuery();
+
             while (rs.next()) {
-                Socio item = new Socio();
+                Alquiler item = new Alquiler();
                 item.setId(rs.getInt("id"));
-                item.setEmail(rs.getString("email"));
-                item.setNombres(rs.getString("nombres"));
-                item.setPaterno(rs.getString("paterno"));
-                item.setMaterno(rs.getString("materno"));
-                item.setCelular(rs.getInt("celular"));
-                item.setSexo(rs.getInt("sexo"));
-                item.setDireccion(rs.getString("direccion"));
+                item.setHoraInicio(rs.getString("hora_inicio"));
+                item.setHoraFin(rs.getString("hora_fin"));
+                item.setFecha(rs.getDate("fecha"));
+                item.setEstado(rs.getInt("estado"));
+                item.setServicios(rs.getString("servicios"));
+                item.setSocio((Socio) rs.getObject("socio"));
+                item.setCampo((Campo) rs.getObject("campo"));
                 lista.add(item);
             }
         } catch (SQLException e) {
@@ -45,62 +46,63 @@ public class SocioDAO extends BaseDAO {
             this.cerrarResultSet(rs);
             this.cerrarStatement(stmt);
             this.cerrarConexion(con);
-
         }
         return lista;
     }
 
-    public Socio get(Socio socio) throws DAOExcepcion {
-        String query = "SELECT  *FROM socio WHERE id=?";
+    public Alquiler get(Alquiler alquiler)
+            throws DAOExcepcion {
+        String query = "SELECT *FROM alquiler WHERE id = ?";
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Socio item = new Socio();
+        Alquiler item = new Alquiler();
         try {
             con = ConexionDB.obtenerConexion();
             stmt = con.prepareStatement(query);
-            stmt.setLong(1, socio.getId());
+            stmt.setLong(1, alquiler.getId());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 item.setId(rs.getInt("id"));
-                item.setEmail(rs.getString("email"));
-                item.setNombres(rs.getString("nombres"));
-                item.setPaterno(rs.getString("paterno"));
-                item.setMaterno(rs.getString("materno"));
-                item.setCelular(rs.getInt("celular"));
-                item.setSexo(rs.getInt("sexo"));
-                item.setDireccion(rs.getString("direccion"));
-            }
+                item.setHoraInicio(rs.getString("hora_inicio"));
+                item.setHoraFin(rs.getString("hora_fin"));
+                item.setFecha(rs.getDate("fecha"));
+                item.setEstado(rs.getInt("estado"));
+                item.setServicios(rs.getString("servicios"));
+                item.setSocio((Socio) rs.getObject("socio"));
+                item.setCampo((Campo) rs.getObject("campo"));
 
+            }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
             this.cerrarResultSet(rs);
             this.cerrarStatement(stmt);
             this.cerrarConexion(con);
-
         }
         return item;
     }
 
-    public Socio save(Socio socio) throws DAOExcepcion {
-        String query = "INSERT INTO socio (email,nombres,paterno,materno,celular,sexo,direccion) VALUES  (?,?,?,?,?,?,?,?)";
+    public Alquiler save(Alquiler alquiler) throws DAOExcepcion {
+        String query = "INSERT INTO alquiler(horaInicio,horaFin,fecha,servicios,estado,id_socio,id_campo) VALUES (?,?,?,?,?,?,?)";
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             con = ConexionDB.obtenerConexion();
             stmt = con.prepareStatement(query);
-            stmt.setString(1, socio.getEmail());
-            stmt.setString(2, socio.getNombres());
-            stmt.setString(3, socio.getPaterno());
-            stmt.setString(4, socio.getMaterno());
-            stmt.setInt(5, socio.getCelular());
-            stmt.setInt(6, socio.getSexo());
-            stmt.setString(7, socio.getDireccion());
+
+            stmt.setString(1, alquiler.getHoraInicio());
+            stmt.setString(2, alquiler.getHoraFin());
+            stmt.setDate(3, (Date) alquiler.getFecha());
+            stmt.setString(4, alquiler.getServicios());
+            stmt.setInt(5, alquiler.getEstado());
+            stmt.setObject(6, alquiler.getSocio());
+            stmt.setObject(7, alquiler.getCampo());
+
             int i = stmt.executeUpdate();
             if (i != 1) {
-                throw new SQLException("No se pudo Insertar");
+                throw new SQLException("No se pudo insertar");
             }
             int id = 0;
             query = "select last_insert_id()";
@@ -109,7 +111,8 @@ public class SocioDAO extends BaseDAO {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-            socio.setId(id);
+            alquiler.setId(id);
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
@@ -117,25 +120,24 @@ public class SocioDAO extends BaseDAO {
             this.cerrarStatement(stmt);
             this.cerrarConexion(con);
         }
-        return socio;
+        return alquiler;
     }
 
-    public Socio update(Socio socio) throws DAOExcepcion {
-        String query = "UPDATE socio email=?,nombres=?,paterno=?,materno=?,celular=?,sexo=?,direccion=? WHERE id=?";
+    public Alquiler update(Alquiler alquiler) throws DAOExcepcion {
+        String query = "UPDATE alquiler horaInicio=?,horaFin=?,fecha=?,servicios=?,estado=?,socio=?,Campo=? WHERE id=?";
         Connection con = null;
         PreparedStatement stmt = null;
-        ResultSet rs = null;
         try {
             con = ConexionDB.obtenerConexion();
             stmt = con.prepareStatement(query);
-            stmt.setString(1, socio.getEmail());
-            stmt.setString(2, socio.getNombres());
-            stmt.setString(4, socio.getPaterno());
-            stmt.setString(5, socio.getMaterno());
-            stmt.setInt(6, socio.getCelular());
-            stmt.setInt(7, socio.getSexo());
-            stmt.setString(8,socio.getDireccion());
-            stmt.setLong(9, socio.getId());
+            stmt.setString(1, alquiler.getHoraInicio());
+            stmt.setString(2, alquiler.getHoraFin());
+            stmt.setDate(3, (Date) alquiler.getFecha());
+            stmt.setString(4, alquiler.getServicios());
+            stmt.setInt(5, alquiler.getEstado());
+            stmt.setObject(6, alquiler.getSocio());
+            stmt.setObject(6, alquiler.getCampo());
+
             int i = stmt.executeUpdate();
             if (i != 1) {
                 throw new SQLException("No se pudo actualizar");
@@ -143,22 +145,20 @@ public class SocioDAO extends BaseDAO {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
-            this.cerrarResultSet(rs);
             this.cerrarStatement(stmt);
             this.cerrarConexion(con);
         }
-
-        return socio;
+        return alquiler;
     }
 
-    public void delete(Socio socio) throws DAOExcepcion {
-        String query = "delete from socio WHERE id=?";
+    public void delete(Alquiler Alquiler) throws DAOExcepcion {
+        String query = "DELETE FROM alquiler WHERE id=?";
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ConexionDB.obtenerConexion();
             stmt = con.prepareStatement(query);
-            stmt.setLong(1, socio.getId());
+            stmt.setLong(1, Alquiler.getId());
             int i = stmt.executeUpdate();
             if (i != 1) {
                 throw new SQLException("No se pudo eliminar");
