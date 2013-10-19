@@ -142,7 +142,7 @@ public class CampoDAO extends BaseDAO {
         return campo;
     }
 
-    public void delete(Servicio campo) throws DAOExcepcion {
+    public void delete(Campo campo) throws DAOExcepcion {
         String query = "DELETE FROM campo WHERE id=?";
         Connection con = null;
         PreparedStatement stmt = null;
