@@ -1,4 +1,4 @@
-package app.controler.local;
+package app.controller.local;
 
 import app.dao.LocalDAO;
 import app.model.Local;
