@@ -1,7 +1,7 @@
 package app.controller.local;
 
-import app.dao.LocalDAO;
 import app.dao.DAOExcepcion;
+import app.dao.LocalDAO;
 import app.model.Local;
 import java.util.List;
 
@@ -32,5 +32,6 @@ public class LocalService {
     public void delete(Local local) throws DAOExcepcion {
         localDAO.delete(local);
     }
+    
       
 }

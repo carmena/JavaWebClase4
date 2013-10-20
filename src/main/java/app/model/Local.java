@@ -2,7 +2,7 @@
 package app.model;
 public class Local {
 
-    private int id;
+    private long id;
     private String direccion;
     private String descripcion;
     private int estado;
@@ -17,13 +17,14 @@ public class Local {
         this.descripcion = descripcion;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
+
 
     public String getDireccion() {
         return direccion;
