@@ -22,21 +22,22 @@ public class SocioDAO extends BaseDAO {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        Socio item;
         try {
             con = ConexionDB.obtenerConexion();
             String query = "SELECT *FROM socio ORDER BY paterno;";
             stmt = con.prepareStatement(query);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                Socio item = new Socio();
+                item = new Socio();
                 item.setId(rs.getInt("id"));
                 item.setEmail(rs.getString("email"));
                 item.setNombres(rs.getString("nombres"));
                 item.setPaterno(rs.getString("paterno"));
                 item.setMaterno(rs.getString("materno"));
-                item.setCelular(rs.getInt("celular"));
-                item.setSexo(rs.getInt("sexo"));
-                item.setDireccion(rs.getString("direccion"));
+//                item.setCelular(rs.getInt("celular"));
+//                item.setSexo(rs.getInt("sexo"));
+//                item.setDireccion(rs.getString("direccion"));
                 lista.add(item);
             }
         } catch (SQLException e) {
