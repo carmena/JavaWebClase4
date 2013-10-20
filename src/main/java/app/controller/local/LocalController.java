@@ -70,7 +70,7 @@ public class LocalController extends HttpServlet {
             }
         }
 
-        response.sendRedirect(request.getContextPath()+"/adm/locales");
+        response.sendRedirect(request.getContextPath()+"/local");
     }
    
     protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -121,7 +121,7 @@ public class LocalController extends HttpServlet {
             Logger.getLogger(LocalController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        response.sendRedirect(request.getContextPath()+"/adm/locales");
+        response.sendRedirect(request.getContextPath()+"/local");
 
     }
 }

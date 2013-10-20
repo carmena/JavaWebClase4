@@ -111,7 +111,8 @@ public class LocalDAO extends BaseDAO {
     }
 
     public Local update(Local local) throws DAOExcepcion {
-        String query = "UPDATE local direccion=?,descripcion=?,estado=?,maps=?,telefono=? WHERE id=?";
+        String query = "UPDATE local set direccion=?,descripcion=?,estado=?,maps=?,telefono=? WHERE id=?";
+        
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
