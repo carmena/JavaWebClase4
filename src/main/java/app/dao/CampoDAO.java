@@ -22,7 +22,8 @@ public class CampoDAO extends BaseDAO {
         ResultSet rs = null;
         try {
             con = ConexionDB.obtenerConexion();
-            String query = "SELECT *FROM campo ORDER BY descripcion";
+            String query = "SELECT * FROM campo "
+                    + "";
             stmt = con.prepareStatement(query);
             rs = stmt.executeQuery();
 
@@ -33,7 +34,7 @@ public class CampoDAO extends BaseDAO {
                 item.setEstado(rs.getInt("estado"));
                 item.setTipo(rs.getInt("tipo"));
                 item.setCosto_Hora(rs.getDouble("costo_hora"));
-                item.setLocal((Local) rs.getObject("idlocal"));
+                item.setLocal((Local) rs.getObject("descripcion"));
                 lista.add(item);
             }
         } catch (SQLException e) {
