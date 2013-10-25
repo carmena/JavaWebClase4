@@ -7,9 +7,9 @@
             <li><a href="<%=contextPath%>/adm/calendarios">Calendario</a></li>
             
             <li class="nav-header">Administración</li>
-            <li class="active"><a href="<%=contextPath%>/adm/locales">Locales</a></li>
+            <li class="active"><a href="<%=contextPath%>/local">Locales</a></li>
             <li><a href="<%=contextPath%>/campo">Campos Deportivos</a></li>
-            <li><a href="<%=contextPath%>/adm/servicios">Otros Servicios</a></li>
+            <li><a href="<%=contextPath%>/servicio">Otros Servicios</a></li>
         </ul>
     </div>
     
